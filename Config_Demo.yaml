@@ -1,0 +1,292 @@
+# url 里填写自己的订阅,名称不能重复
+proxy-providers:
+  provider1:
+    url: ""  #""里写机场订阅链接
+    type: http
+    interval: 86400
+    health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
+    override:
+      additional-prefix: "[]"  #[]里写机场名
+
+  provider2:
+    url: ""  #""里写机场订阅链接
+    type: http
+    interval: 86400
+    health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
+    override:
+      additional-prefix: "[]"  #[]里写机场名
+
+proxies: 
+  - name: "直连"
+    type: direct
+    udp: true
+
+mixed-port: 7890
+ipv6: true
+allow-lan: true
+unified-delay: false
+tcp-concurrent: true
+external-controller: 127.0.0.1:9090
+external-ui: ui
+external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+
+find-process-mode: strict
+global-client-fingerprint: chrome
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+    - "*"
+    - "+.lan"
+    - "+.local"
+    - "+.market.xiaomi.com"
+  default-nameserver:
+    - tls://223.5.5.5
+    - tls://223.6.6.6
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+
+proxy-groups:
+  - name: 套餐到期
+    type: select
+    include-all: true
+    exclude-type: direct
+    filter: "(?i)套餐到期"
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Pirate_Nation.png
+
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - 🚀 手动切换
+      - 香港
+      - 台湾
+      - 日本
+      - 新加坡
+      - 美国
+      - 其它地区
+      - DIRECT
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Proxy.png
+
+  - name: 🚀 手动切换
+    type: select
+    include-all: true
+    exclude-type: direct
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/WiFi.png
+
+  - name: ♻️ 自动选择 
+    type: url-test
+    include-all: true
+    exclude-type: direct
+    tolerance: 10
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Loop.png
+
+  - name: 📲 电报消息
+    type: select
+    proxies: [🚀 节点选择,香港,台湾,新加坡,美国,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Telegram.png
+
+  - name: 💬 Ai平台
+    type: select
+    proxies: [🚀 节点选择,台湾,新加坡,美国,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/ChatGPT.png
+
+  - name: 📹 油管视频
+    type: select
+    proxies: [美国,🚀 节点选择,香港,台湾,新加坡,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/YouTube.png
+
+  - name: 🎥 奈飞视频
+    type: select
+    proxies: [美国,🚀 节点选择,香港,台湾,新加坡,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Netflix.png
+
+  - name: 🎵 TikTok
+    type: select
+    proxies:  [美国,🚀 节点选择,香港,台湾,新加坡,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/TikTok_1.png
+
+  - name: 🌍 国外媒体
+    type: select
+    proxies: [🚀 节点选择,香港,台湾,新加坡,美国,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/ForeignMedia.png
+
+  - name: 🌏 国内媒体
+    type: select
+    proxies: [DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Global.png
+
+  - name: 📢 谷歌FCM
+    type: select
+    proxies: [🚀 节点选择,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Google_Search.png
+
+  - name: 🪟 微软服务
+    type: select
+    proxies: [DIRECT,🚀 节点选择,香港,台湾,新加坡,美国,自建节点]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Microsoft.png
+
+  - name: 🎯 全球直连
+    type: select
+    proxies: [DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Direct.png
+
+  - name: 🛑 广告拦截
+    type: select
+    proxies: [REJECT,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/AdBlack.png
+
+  - name: 🍃 应用净化
+    type: select
+    proxies: [REJECT,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Azure.png
+
+  - name: 🛡️ 隐私防护
+    type: select
+    proxies: [REJECT,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Advertising.png
+
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:  [🚀 节点选择,香港,台湾,新加坡,美国,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Global.png
+
+  #分隔,下面是地区分组
+  - name: 香港
+    type: select
+    include-all: true
+    exclude-type: direct
+    filter: "(?i)港|hk|hongkong|hong kong"
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Hong_Kong.png
+
+  - name: 台湾
+    type: select
+    include-all: true
+    exclude-type: direct
+    filter: "(?i)台|tw|taiwan"
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Taiwan.png
+
+  - name: 日本
+    type: select
+    include-all: true
+    exclude-type: direct
+    filter: "(?i)日|jp|japan"
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Japan.png
+
+  - name: 美国
+    type: select
+    include-all: true
+    exclude-type: direct
+    filter: "(?i)美|us|unitedstates|united states"
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/United_States.png
+
+  - name: 新加坡
+    type: select
+    include-all: true
+    exclude-type: direct
+    filter: "(?i)(新|sg|singapore)"
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Singapore.png
+
+  - name: 其它地区
+    type: select
+    include-all: true
+    exclude-type: direct
+    filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Area.png
+
+
+rules:
+#Github规则
+  - RULE-SET,Global_Direct,🎯 全球直连
+  - RULE-SET,Ad_Block,🛑 广告拦截
+  - RULE-SET,Application_Purification,🍃 应用净化
+  - RULE-SET,Privacy_Protection,🛡️ 隐私防护
+  - RULE-SET,GoogleFCM,📢 谷歌FCM
+  - RULE-SET,Microsoft,🪟 微软服务
+  - RULE-SET,Telegram,📲 电报消息
+  - RULE-SET,AI,💬 Ai平台
+  - RULE-SET,YouTube,📹 油管视频
+  - RULE-SET,Netflix,🎥 奈飞视频
+  - RULE-SET,China,🌏 国内媒体
+  - RULE-SET,Foreign,🌍 国外媒体
+  - RULE-SET,TikTok,🎵 TikTok
+  - RULE-SET,Node_Selection,🚀 节点选择
+  - GEOIP,CN,DIRECT
+  - MATCH,🐟 漏网之鱼
+
+
+rule-anchor:
+  c: &c {type: http, interval: 86400, behavior: classical, format: text}
+rule-providers:
+  Global_Direct:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Global_Direct.list"
+  Ad_Block:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Ad_Block.list"
+  Application_Purification:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Application_Purification.list"
+  Privacy_Protection:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Privacy_Protection.list"
+  GoogleFCM:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/GoogleFCM.list"
+  Microsoft:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Microsoft.list"
+  Telegram:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Telegram.list"
+  AI:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/AI.list"
+  YouTube:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/YouTube.list"
+  Netflix:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Netflix.list"
+  China:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/China.list"
+  Foreign:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Foreign.list"
+  TikTok:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/TikTok.list"
+  Node_Selection:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/Node_Selection.list"
