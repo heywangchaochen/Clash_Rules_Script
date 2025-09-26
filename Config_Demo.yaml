@@ -1,4 +1,4 @@
-# url 里填写自己的订阅,名称不能重复
+# url里填写自己的订阅,名称不能重复,支持订阅合并
 proxy-providers:
   provider1:
     url: ""  #""里写机场订阅链接
@@ -22,7 +22,7 @@ proxy-providers:
     interval: 86400
     health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
     override:
-      additional-prefix: "[自建]"  #[]里写机场名
+      additional-prefix: "[]"  #[]里写机场名
 
 proxies: 
   - name: "全球直连"
@@ -119,15 +119,20 @@ proxy-groups:
     tolerance: 10
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Loop.png
 
-  - name: Google
-    type: select
-    proxies: [节点选择,自建节点,DIRECT]
-    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Google_Search.png
-
   - name: Telegram
     type: select
     proxies: [节点选择,🇭🇰 香港,🇸🇬 新加坡,🇺🇸 美国,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Telegram.png
+
+  - name: AI
+    type: select
+    proxies: [节点选择,🇺🇸 美国,自建节点,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/ChatGPT.png
+
+  - name: Google
+    type: select
+    proxies: [节点选择,自建节点,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Google_Search.png
 
   - name: TikTok
     type: select
@@ -143,6 +148,11 @@ proxy-groups:
     type: select
     proxies: [自建节点,🇺🇸 美国,节点选择,🇭🇰 香港,🇸🇬 新加坡,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Netflix.png
+    
+  - name: EmbyCF
+    type: select
+    proxies: [自建节点,🇺🇸 美国,节点选择,🇭🇰 香港,🇸🇬 新加坡]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Emby.png
 
   - name: 广告拦截
     type: select
@@ -220,9 +230,7 @@ proxy-groups:
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Lock.png
 
 rules:
-
 #Github规则
-  - RULE-SET,private_ip,全球直连,no-resolve
   - RULE-SET,ad_block,广告拦截
   - RULE-SET,application_purification,应用净化
   - RULE-SET,youtube_domain,YouTube
@@ -230,13 +238,9 @@ rules:
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,netflix_domain,Netflix
+  - RULE-SET,ai_domain,AI
   - RULE-SET,privacy_protection,隐私防护
   - GEOIP,CN,DIRECT
-  - RULE-SET,geolocation-!cn,漏网之鱼
-
-  - RULE-SET,google_ip,Google
-  - RULE-SET,telegram_ip,Telegram
-  - RULE-SET,cn_ip,国内媒体
   - MATCH,漏网之鱼
 
 rule-anchor:
@@ -244,18 +248,12 @@ rule-anchor:
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
   c: &c {type: http, interval: 86400, behavior: classical, format: text}
 rule-providers:
-  private_domain:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
-  cn_domain:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
   ad_block:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/blob/main/Rules/Ad_Block.list"
   application_purification:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/blob/main/Rules/Application_Purification.list"
   youtube_domain:
     <<: *c
     url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/YouTube.list"
@@ -268,28 +266,12 @@ rule-providers:
   tiktok_domain:
     <<: *c
     url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/TikTok.list"
+  ai_domain:
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/refs/heads/main/Rules/AI.list"
   netflix_domain:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"
   privacy_protection:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bilibili.mrs"
-  pixiv_domain:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/pixiv.mrs"
-  geolocation-!cn:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
-
-  private_ip:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
-  cn_ip:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.list"
-  google_ip:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"
-  telegram_ip:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"
+    <<: *c
+    url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/blob/main/Rules/Privacy_Protection.list"
