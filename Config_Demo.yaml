@@ -232,8 +232,8 @@ proxy-groups:
 rules:
 #手写规则匹配
 #emby代理 (,,中间写emby地址),EmbyCF是走代理的
-  - DOMAIN,,EmbyCF # 此处可以写你的emby名，例如终点站
-  - DOMAIN,,EmbyCF # 星云
+  - DOMAIN,,EmbyCF # 此处可以写你的emby名，例如终点站1
+  - DOMAIN,,EmbyCF # 此处可以写你的emby名，例如终点站2
 
 
 #emby直连 (,,中间写emby地址),DIRECT是走直连的
