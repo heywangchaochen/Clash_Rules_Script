@@ -1,4 +1,4 @@
-# url里填写自己的订阅,名称不能重复,支持订阅合并
+# url 里填写自己的订阅,名称不能重复
 proxy-providers:
   provider1:
     url: ""  #""里写机场订阅链接
@@ -17,7 +17,7 @@ proxy-providers:
       additional-prefix: "[]"  #[]里写机场名
 
   provider3:
-    url: "" 
+    url: "" #""里写机场订阅链接
     type: http
     interval: 86400
     health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
@@ -230,6 +230,16 @@ proxy-groups:
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Lock.png
 
 rules:
+#手写规则匹配
+#emby代理 (,,中间写emby地址),EmbyCF是走代理的
+  - DOMAIN,,EmbyCF # 此处可以写你的emby名，例如终点站
+  - DOMAIN,,EmbyCF # 星云
+
+
+#emby直连 (,,中间写emby地址),DIRECT是走直连的
+  - DOMAIN-SUFFIX,,DIRECT #此处可以写你的emby名，例如终点站
+
+
 #Github规则
   - RULE-SET,ad_block,广告拦截
   - RULE-SET,application_purification,应用净化
