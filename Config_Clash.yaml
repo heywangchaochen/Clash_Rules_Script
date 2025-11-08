@@ -1,12 +1,12 @@
 # url 里填写自己的订阅,名称不能重复
 proxy-providers:
   provider1:
-    url: ""  #""里写机场订阅链接
+    url: "" #""里写机场订阅链接
     type: http
     interval: 86400
     health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
     override:
-      additional-prefix: "[]"  #[]里写机场名
+      additional-prefix: "[]" #[]里写机场名
 
   provider2:
     url: "" #""里写机场订阅链接
@@ -14,7 +14,7 @@ proxy-providers:
     interval: 86400
     health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
     override:
-      additional-prefix: "[]"  #[]里写机场名
+      additional-prefix: "[]" #[]里写机场名
 
   provider3:
     url: "" #""里写机场订阅链接
@@ -22,7 +22,15 @@ proxy-providers:
     interval: 86400
     health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
     override:
-      additional-prefix: "[]"  #[]里写机场名
+      additional-prefix: "[]" #[]里写机场名
+
+  provider4:
+    url: "" #""里写机场订阅链接
+    type: http
+    interval: 86400
+    health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
+    override:
+      additional-prefix: "[]" #[]里写机场名
 
 proxies: 
   - name: "全球直连"
@@ -98,11 +106,12 @@ proxy-groups:
     proxies:
       - 手动切换
       - 🇭🇰 香港
-      - 🇨🇳 台湾
+      - 🇹🇼 台湾
       - 🇯🇵 日本
       - 🇸🇬 新加坡
       - 🇺🇸 美国
       - 其它地区
+      - 自建节点
       - DIRECT
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Proxy.png
 
@@ -121,37 +130,42 @@ proxy-groups:
 
   - name: Telegram
     type: select
-    proxies: [节点选择,🇭🇰 香港,🇸🇬 新加坡,🇺🇸 美国,自建节点,DIRECT]
+    proxies: [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Telegram.png
 
   - name: AI
     type: select
-    proxies: [节点选择,🇺🇸 美国,自建节点,DIRECT]
+    proxies: [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/ChatGPT.png
 
   - name: Google
     type: select
-    proxies: [节点选择,自建节点,DIRECT]
+    proxies: [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Google_Search.png
 
   - name: TikTok
     type: select
-    proxies:  [自建节点,🇺🇸 美国,节点选择,🇭🇰 香港,🇸🇬 新加坡,DIRECT]
+    proxies:  [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/TikTok_1.png
 
+  - name: YouTubeMusic
+    type: select
+    proxies: [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
+    icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/YouTube_Music.png
+    
   - name: YouTube
     type: select
-    proxies: [自建节点,🇺🇸 美国,节点选择,🇭🇰 香港,🇸🇬 新加坡,DIRECT]
+    proxies: [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/YouTube.png
 
   - name: Netflix
     type: select
-    proxies: [自建节点,🇺🇸 美国,节点选择,🇭🇰 香港,🇸🇬 新加坡,DIRECT]
+    proxies: [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Netflix.png
     
   - name: EmbyCF
     type: select
-    proxies: [自建节点,🇺🇸 美国,节点选择,🇭🇰 香港,🇸🇬 新加坡]
+    proxies: [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Emby.png
 
   - name: 广告拦截
@@ -176,7 +190,7 @@ proxy-groups:
 
   - name: 漏网之鱼
     type: select
-    proxies:  [节点选择,DIRECT]
+    proxies:  [节点选择,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,🇸🇬 新加坡,🇺🇸 美国,其它地区,自建节点,DIRECT]
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Global.png
 
   #分隔,下面是地区分组
@@ -187,7 +201,7 @@ proxy-groups:
     filter: "(?i)港|hk|hongkong|hong kong"
     icon: https://gh-proxy.com/https://github.com/heywangchaochen/Qure/blob/master/IconSet/Color/Hong_Kong.png
 
-  - name: 🇨🇳 台湾
+  - name: 🇹🇼 台湾
     type: select
     include-all: true
     exclude-type: direct
@@ -231,14 +245,6 @@ proxy-groups:
 
 rules:
 #手写规则匹配
-#emby代理 (,,中间写emby地址),EmbyCF是走代理的
-  - DOMAIN,,EmbyCF # 此处可以写你的emby名，例如终点站1
-  - DOMAIN,,EmbyCF # 此处可以写你的emby名，例如终点站2
-
-
-#emby直连 (,,中间写emby地址),DIRECT是走直连的
-  - DOMAIN-SUFFIX,,DIRECT #此处可以写你的emby名，例如终点站
-
 
 #Github规则
   - RULE-SET,ad_block,广告拦截
@@ -248,9 +254,17 @@ rules:
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,netflix_domain,Netflix
+  - RULE-SET,twitch_domain,YouTube
   - RULE-SET,ai_domain,AI
+  - RULE-SET,youtube_music_domain,YouTubeMusic
+  - RULE-SET,spotify_domain,YouTubeMusic
   - RULE-SET,privacy_protection,隐私防护
   - GEOIP,CN,DIRECT
+
+  - RULE-SET,google_ip,Google
+  - RULE-SET,netflix_ip,Netflix
+  - RULE-SET,telegram_ip,Telegram
+  - RULE-SET,cn_ip,DIRECT
   - MATCH,漏网之鱼
 
 rule-anchor:
@@ -282,6 +296,33 @@ rule-providers:
   netflix_domain:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"
+  twitch_domain:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitch.mrs"
   privacy_protection:
     <<: *c
     url: "https://raw.githubusercontent.com/heywangchaochen/Clash_Rules_Script/blob/main/Rules/Privacy_Protection.list"
+  youtube_music_domain:
+    type: http
+    behavior: classical
+    interval: 86400
+    url: https://whatshub.top/rule/YouTubeMusic.rule
+  spotify_domain:
+    type: http
+    behavior: classical
+    interval: 86400
+    url: https://whatshub.top/rule/Spotify.rule
+
+
+  cn_ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
+  google_ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"
+  netflix_ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"
+  telegram_ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"
